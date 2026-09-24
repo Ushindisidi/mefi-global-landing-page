@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MEFI Global — Your financial identity, beyond the bank account</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-dark:#123B44;--teal:#1B5E6B;--teal-mid:#2A7D8E;--teal-light:#4BBFCB;
+  --mint:#EEF8F8;--amber:#E8A33D;--amber-deep:#C8811F;--ink:#0F2320;--ink-soft:#4A6169;
+  --paper:#FCFBF7;--line:rgba(15,35,32,.1);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;line-height:1.15;color:var(--teal-dark)}
+a{color:inherit}
+img{max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding-left:6%;padding-right:6%}
+.eyebrow{color:var(--amber-deep);font-weight:600;font-size:.85rem;margin-bottom:.6rem}
+.lead{color:var(--ink-soft);font-size:1.08rem;max-width:560px;margin-bottom:2rem}
+section{padding:5.5rem 0}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* NAV */
+header{position:sticky;top:0;z-index:200;background:rgba(252,251,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{max-width:1180px;margin:0 auto;padding:0 6%;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.25rem;color:var(--teal-dark);letter-spacing:-.01em;display:flex;align-items:center;gap:.55rem;text-decoration:none}
+.logo span{color:var(--amber-deep)}
+.logo img{height:34px;width:auto;display:block}
+.foot-logo img{height:28px;width:auto;display:block}
+.nav-links{display:flex;gap:2.2rem;align-items:center}
+.nav-links a{font-size:.92rem;font-weight:500;text-decoration:none;color:var(--ink-soft)}
+.nav-links a:hover{color:var(--teal-dark)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.85rem 1.7rem;border-radius:8px;font-weight:600;font-size:.92rem;text-decoration:none;border:1.5px solid transparent;cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--teal-dark);color:#fff}
+.btn-primary:hover{background:var(--teal)}
+.btn-ghost{border-color:var(--teal-dark);color:var(--teal-dark);background:transparent}
+.btn-ghost:hover{background:var(--mint)}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:.4rem;flex-direction:column;gap:5px}
+.burger span{width:24px;height:2px;background:var(--teal-dark);display:block}
+.mobile-menu{display:none;flex-direction:column;gap:1.1rem;padding:1.5rem 6% 2rem;border-top:1px solid var(--line)}
+.mobile-menu a{text-decoration:none;color:var(--ink);font-weight:500}
+.mobile-menu.open{display:flex}
+
+/* HERO */
+.hero{padding:4.5rem 0 5rem;display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center}
+.hero h1{font-size:clamp(2.1rem,4vw,3.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:1.3rem}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px rgba(18,59,68,.1)}
+.score-card{padding:1.9rem;max-width:360px;margin-left:auto}
+.sc-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:1rem;border-bottom:1px solid var(--line);margin-bottom:1.3rem}
+.sc-user{display:flex;align-items:center;gap:.7rem}
+.sc-avatar{width:38px;height:38px;border-radius:50%;background:var(--mint);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.sc-name{font-weight:600;font-size:.92rem}
+.sc-id{font-size:.72rem;color:var(--ink-soft)}
+.badge{font-size:.68rem;font-weight:600;background:var(--mint);color:var(--teal);padding:.3rem .6rem;border-radius:20px}
+.sc-main{text-align:center;margin-bottom:1.4rem}
+.ring{width:118px;height:118px;margin:0 auto .5rem;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.ring .track{stroke:var(--mint)}
+.ring .fill{stroke:var(--teal-dark);stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1)}
+.ring .num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:800;font-size:1.7rem;color:var(--teal-dark)}
+.grade{display:inline-block;background:var(--mint);color:var(--teal);font-weight:700;font-size:.8rem;padding:.28rem .8rem;border-radius:20px}
+.metric-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.65rem}
+.metric-row span:first-child{font-size:.74rem;color:var(--ink-soft);width:92px}
+.metric-track{flex:1;height:5px;background:var(--mint);border-radius:3px;overflow:hidden}
+.metric-fill{height:100%;background:var(--teal-light);border-radius:3px;width:0}
+.metric-val{font-size:.74rem;font-weight:600;width:32px;text-align:right}
+.sc-foot{margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--line);display:flex;align-items:center;gap:.5rem;font-size:.72rem;color:var(--ink-soft)}
+.dot{width:7px;height:7px;border-radius:50%;background:#2FAE66}
+.demo-tag{font-size:.66rem;color:var(--ink-soft);text-align:center;margin-top:.7rem;opacity:.75}
+
+/* PROBLEM */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:2.5rem}
+.split > div{padding:2.3rem}
+.split-old{background:#fff}
+.split-new{background:var(--teal-dark);color:#fff}
+.split h4{font-size:.95rem;margin-bottom:1rem}
+.split-old h4{color:var(--ink-soft)}
+.split-new h4{color:rgba(255,255,255,.7)}
+.split ul{list-style:none;display:flex;flex-direction:column;gap:.7rem;font-size:.92rem}
+.split-old li{color:var(--ink)}
+.split-new li{color:rgba(255,255,255,.92)}
+
+/* SOLUTION — identity diagram */
+.identity{display:flex;justify-content:center;padding:3rem 0 1rem}
+.orbit{position:relative;width:420px;height:420px;max-width:100%}
+.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;background:var(--teal-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:700;font-size:.95rem;text-align:center;padding:.5rem}
+.node{position:absolute;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.55rem .9rem;font-size:.8rem;font-weight:600;color:var(--teal-dark);box-shadow:0 8px 20px rgba(18,59,68,.06)}
+.orbit svg{position:absolute;inset:0;width:100%;height:100%}
+.orbit line{stroke:var(--line);stroke-width:2}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;position:relative}
+.step{position:relative}
+.step-num{font-family:Sora;font-weight:800;font-size:.85rem;color:var(--amber-deep);margin-bottom:.7rem}
+.step h4{font-size:1.05rem;margin-bottom:.5rem}
+.step p{font-size:.92rem;color:var(--ink-soft)}
+.steps::before{content:'';position:absolute;top:.6rem;left:16.6%;right:16.6%;height:1px;background:var(--line)}
+
+/* AUDIENCE */
+.audience{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.5rem}
+.aud-card{border-radius:16px;padding:2.1rem}
+.aud-1{background:#fff;border:1px solid var(--line)}
+.aud-2{background:var(--teal-dark);color:#fff}
+.aud-3{background:var(--amber);color:var(--ink)}
+.aud-card .aud-tag{font-size:.72rem;font-weight:600;color:var(--amber-deep);margin-bottom:.5rem}
+.aud-2 .aud-tag{color:var(--amber)}
+.aud-3 .aud-tag{color:var(--teal-dark)}
+.aud-card h3{margin-bottom:.7rem;font-size:1.2rem}
+.aud-2 h3{color:#fff}
+.aud-3 h3{color:var(--ink)}
+.aud-card p{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.1rem}
+.aud-2 p{color:rgba(255,255,255,.75)}
+.aud-3 p{color:rgba(15,35,32,.7)}
+.aud-card ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.86rem}
+.aud-2 ul{color:rgba(255,255,255,.92)}
+.aud-3 ul{color:var(--ink)}
+.aud-card li::before{content:'—';margin-right:.5rem;color:var(--amber-deep)}
+.aud-2 li::before{color:var(--amber)}
+.aud-3 li::before{color:var(--teal-dark)}
+
+/* WHY */
+.why-list{display:grid;grid-template-columns:repeat(2,1fr);gap:2.2rem 3rem;margin-top:2.5rem}
+.why-item h4{font-size:1.02rem;margin-bottom:.4rem}
+.why-item p{font-size:.9rem;color:var(--ink-soft)}
+
+/* WAITLIST */
+.waitlist{background:var(--teal-dark);color:#fff}
+.waitlist h2{color:#fff}
+.waitlist .lead{color:rgba(255,255,255,.72)}
+.tabs{display:flex;gap:.5rem;margin:1.8rem 0}
+.tab{padding:.55rem 1.1rem;border-radius:7px;border:1px solid rgba(255,255,255,.28);background:transparent;color:rgba(255,255,255,.65);font-size:.86rem;font-weight:500;cursor:pointer;font-family:inherit}
+.tab.active{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.form-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:2rem;max-width:560px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fgroup{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.fgroup label{font-size:.82rem;color:rgba(255,255,255,.78)}
+.fgroup input,.fgroup select,.fgroup textarea{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:7px;padding:.7rem .9rem;color:#fff;font-size:.9rem;font-family:inherit;outline:none}
+.fgroup select option{background:var(--teal-dark)}
+.fgroup input::placeholder,.fgroup textarea::placeholder{color:rgba(255,255,255,.4)}
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:var(--amber)}
+.success{display:none;text-align:center;padding:2rem}
+.success .check{font-size:2.4rem;margin-bottom:.7rem}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem}
+.c-detail{display:flex;gap:.6rem;font-size:.9rem;color:var(--ink-soft);margin-bottom:.6rem}
+.contact-grid .fgroup label{color:var(--ink-soft)}
+.contact-grid .fgroup input,.contact-grid .fgroup textarea{background:var(--mint);border:1px solid var(--line);border-radius:7px;padding:.7rem .9rem;font-family:inherit;font-size:.9rem;width:100%;color:var(--ink)}
+
+footer{border-top:1px solid var(--line);padding:2.6rem 0}
+.foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.2rem}
+.foot-links{display:flex;gap:1.4rem}
+.foot-links a{text-decoration:none;color:var(--ink-soft);font-size:.85rem}
+.foot-text{font-size:.82rem;color:var(--ink-soft)}
+
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--amber-deep);outline-offset:2px}
+
+@media(max-width:860px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .hero{grid-template-columns:1fr;padding:2.6rem 0 3rem;text-align:left}
+  .score-card{max-width:100%;margin:0}
+  .hero-ctas .btn{flex:1}
+  .split{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:1.6rem}
+  .steps::before{display:none}
+  .audience{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .why-list{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  section{padding:3.4rem 0}
+  .orbit{transform:scale(.82)}
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+  <a href="#" class="logo"><img src="mefi-logo.png" alt="MEFI Global logo"> MEFI<span>·</span>Global</a>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#saccos">For SACCOs</a>
+    <a href="#businesses">For Businesses</a>
+    <a href="#investors">For Investors</a>
+    <a href="#waitlist" class="btn btn-primary">Get Early Access</a>
+  </div>
+  <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how">How It Works</a>
+  <a href="#saccos">For SACCOs</a>
+  <a href="#businesses">For Businesses</a>
+  <a href="#investors">For Investors</a>
+  <a href="#waitlist" class="btn btn-primary">Get Early Access</a>
+</div>
+</header>
+
+<section class="hero">
+  <div class="wrap" style="display:contents">
+  <div class="reveal in">
+    <div class="eyebrow">Pilot launching in Nairobi, Kenya</div>
+    <h1>Your financial identity, beyond the bank account.</h1>
+    <p class="lead">MEFI turns everyday financial activity into a verified score. SACCOs lend with confidence, businesses unlock credit and partnerships, and investors get an early stake in a product already live in the market.</p>
+    <div class="hero-ctas">
+      <a href="#waitlist" class="btn btn-primary">Get Early Access</a>
+      <a href="#how" class="btn btn-ghost">See How MEFI Works</a>
+    </div>
+  </div>
+  <div class="reveal in card score-card" aria-label="MEFI product demonstration">
+    <div class="sc-head">
+      <div class="sc-user">
+        <div class="sc-avatar">🪪</div>
+        <div>
+          <div class="sc-name">Wanjiru M.</div>
+          <div class="sc-id">MEFI-0042 · Nairobi</div>
+        </div>
+      </div>
+      <span class="badge">Verified</span>
+    </div>
+    <div class="sc-main">
+      <div class="ring">
+        <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="45"/><circle class="fill" id="ring1" cx="50" cy="50" r="45"/></svg>
+        <div class="num" id="num1">0</div>
+      </div>
+      <span class="grade">Reliable identity</span>
+    </div>
+    <div class="metric-row"><span>Income</span><div class="metric-track"><div class="metric-fill" id="m1"></div></div><span class="metric-val">78%</span></div>
+    <div class="metric-row"><span>Behaviour</span><div class="metric-track"><div class="metric-fill" id="m2"></div></div><span class="metric-val">82%</span></div>
+    <div class="metric-row"><span>Resilience</span><div class="metric-track"><div class="metric-fill" id="m3"></div></div><span class="metric-val">65%</span></div>
+    <div class="sc-foot"><span class="dot"></span> Ed25519 signed · updated 2h ago</div>
+    <div class="demo-tag">Product demonstration · sample data</div>
+  </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap reveal">
+    <div class="eyebrow">The problem</div>
+    <h2 style="font-size:clamp(1.6rem,2.6vw,2.2rem);max-width:640px">Financial activity tells a bigger story than a bank statement.</h2>
+    <p class="lead" style="margin-top:1rem">Traditional financial systems were built around formal banking data. That leaves out a lot of real, verifiable economic activity, the kind that shows how someone actually earns, spends and manages money day to day.</p>
+    <div class="split">
+      <div class="split-old">
+        <h4>The traditional picture</h4>
+        <ul>
+          <li>Relies mainly on formal bank records</li>
+          <li>Misses informal and mobile-based income</li>
+          <li>Treats a thin file as no history at all</li>
+          <li>Slow to update as circumstances change</li>
+        </ul>
+      </div>
+      <div class="split-new">
+        <h4>The MEFI identity</h4>
+        <ul>
+          <li>Draws on broader, real financial activity</li>
+          <li>Recognises informal and everyday income</li>
+          <li>Builds a history from what already exists</li>
+          <li>Reflects activity as it happens</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--mint)">
+  <div class="wrap reveal">
+    <div class="eyebrow">The MEFI concept</div>
+    <h2 style="font-size:clamp(1.6rem,2.6vw,2.2rem);max-width:640px">One identity. A broader picture.</h2>
+    <p class="lead" style="margin-top:1rem">MEFI brings together the financial and economic signals that matter, income, behaviour, business activity and resilience, into a single identity that stays with the person or business it belongs to.</p>
+    <div class="identity">
+      <div class="orbit">
+        <svg viewBox="0 0 420 420" aria-hidden="true">
+          <line x1="210" y1="210" x2="210" y2="40"/><line x1="210" y1="210" x2="380" y2="130"/>
+          <line x1="210" y1="210" x2="380" y2="300"/><line x1="210" y1="210" x2="210" y2="380"/>
+          <line x1="210" y1="210" x2="40" y2="300"/><line x1="210" y1="210" x2="40" y2="130"/>
+        </svg>
+        <div class="orbit-center">MEFI<br>Identity</div>
+        <div class="node" style="top:14px;left:50%;transform:translateX(-50%)">Income</div>
+        <div class="node" style="top:105px;right:0">Activity</div>
+        <div class="node" style="bottom:105px;right:0">Behaviour</div>
+        <div class="node" style="bottom:14px;left:50%;transform:translateX(-50%)">Business</div>
+        <div class="node" style="bottom:105px;left:0">Resilience</div>
+        <div class="node" style="top:105px;left:0">Verification</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap reveal">
+    <div class="eyebrow">How it works</div>
+    <h2 style="font-size:clamp(1.6rem,2.6vw,2.2rem)">A simple, three-step journey</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h4>Connect</h4><p>Financial activity is shared securely, from mobile money to everyday transactions, without handing over sensitive personal data.</p></div>
+      <div class="step"><div class="step-num">02</div><h4>Analyse</h4><p>MEFI looks at patterns over time, how regularly someone earns, how consistent their activity is, and how long it has been sustained.</p></div>
+      <div class="step"><div class="step-num">03</div><h4>Build</h4><p>A signed, tamper-proof identity is produced that individuals and businesses can use with lenders and partners they trust.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="saccos" style="background:var(--mint)">
+  <div class="wrap reveal">
+    <div class="eyebrow">Who it's for</div>
+    <h2 style="font-size:clamp(1.6rem,2.6vw,2.2rem)">Built for SACCOs, businesses and investors</h2>
+    <div class="audience">
+      <div class="aud-card aud-1">
+        <div class="aud-tag">SACCOs & Lenders</div>
+        <h3>Score your members</h3>
+        <p>Give your treasurers a real financial picture of every member, drawn from activity a bank statement never shows.</p>
+        <ul>
+          <li>Score members from real transaction history</li>
+          <li>Reduce bad loans with better decisions</li>
+          <li>Fits into your existing weekly workflow</li>
+        </ul>
+      </div>
+      <div class="aud-card aud-2" id="businesses">
+        <div class="aud-tag">Businesses</div>
+        <h3>Get a verified identity</h3>
+        <p>Turn the revenue you already move into a verified financial identity that opens doors with lenders and partners.</p>
+        <ul>
+          <li>Access credit without a formal bank history</li>
+          <li>Build trust with partners and suppliers</li>
+          <li>One identity, reusable everywhere</li>
+        </ul>
+      </div>
+      <div class="aud-card aud-3" id="investors">
+        <div class="aud-tag">Investors</div>
+        <h3>A pre-seed opportunity</h3>
+        <p>A working product already deployed, built for a market of millions who are credit invisible today.</p>
+        <ul>
+          <li>Pre-seed, product live and in pilot</li>
+          <li>Large, underserved informal-economy market</li>
+          <li>Recurring revenue from SACCO subscriptions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="eyebrow">Why MEFI</div>
+    <h2 style="font-size:clamp(1.6rem,2.6vw,2.2rem)">Trust, built from real activity</h2>
+    <div class="why-list">
+      <div class="why-item"><h4>Broader visibility</h4><p>A fuller view of financial activity than banking history alone can offer.</p></div>
+      <div class="why-item"><h4>Transparent by design</h4><p>Every identity is signed and verifiable, so it cannot be altered after the fact.</p></div>
+      <div class="why-item"><h4>Accessible</h4><p>No new hardware or accounts needed, MEFI works with activity that already exists.</p></div>
+      <div class="why-item"><h4>Privacy respecting</h4><p>Raw data is processed to build the identity and is not retained beyond that purpose.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="waitlist" id="waitlist">
+  <div class="wrap reveal">
+    <div class="eyebrow" style="color:var(--amber)">Get early access</div>
+    <h2>Be part of the next generation of financial identity.</h2>
+    <p class="lead">We're onboarding a first group of individuals, businesses and partners. Tell us a bit about you and we'll be in touch.</p>
+    <div class="tabs">
+      <button class="tab active" id="tabA" onclick="switchTab('a')">SACCO / Lender</button>
+      <button class="tab" id="tabC" onclick="switchTab('c')">Business</button>
+      <button class="tab" id="tabB" onclick="switchTab('b')">Investor / Partner</button>
+    </div>
+    <form class="form-box" id="formBox" action="https://formspree.io/f/mefi.founding.office@gmail.com" method="POST" onsubmit="return submitWaitlist(event)">
+      <input type="hidden" name="_subject" value="New MEFI waitlist signup">
+      <div id="formA">
+        <div class="frow">
+          <div class="fgroup"><label for="fname">Your name</label><input id="fname" name="name" type="text" placeholder="Jane Wanjiku"></div>
+          <div class="fgroup"><label for="frole">Role</label><input id="frole" name="role" type="text" placeholder="SACCO Manager"></div>
+        </div>
+        <div class="fgroup"><label for="forg">SACCO or organisation</label><input id="forg" name="organisation" type="text" placeholder="Eastlands Traders SACCO"></div>
+        <div class="fgroup"><label for="fcontact">Email or phone number</label><input id="fcontact" name="contact" type="text" placeholder="jane@sacco.co.ke or 0712 000 000"></div>
+      </div>
+      <div id="formC" style="display:none">
+        <div class="frow">
+          <div class="fgroup"><label for="fcname">Your name</label><input id="fcname" name="name" type="text" placeholder="Peter Otieno"></div>
+          <div class="fgroup"><label for="fcbiz">Business name</label><input id="fcbiz" name="organisation" type="text" placeholder="Otieno Hardware"></div>
+        </div>
+        <div class="fgroup"><label for="fcneed">What are you looking for?</label><select id="fcneed" name="need"><option>Access to credit</option><option>Partnerships</option><option>Both</option></select></div>
+        <div class="fgroup"><label for="fcemail">Email or phone number</label><input id="fcemail" name="contact" type="text" placeholder="peter@business.co.ke or 0712 000 000"></div>
+      </div>
+      <div id="formB" style="display:none">
+        <div class="frow">
+          <div class="fgroup"><label for="fbname">Your name</label><input id="fbname" name="name" type="text" placeholder="John Kamau"></div>
+          <div class="fgroup"><label for="forgb">Organisation</label><input id="forgb" name="organisation" type="text" placeholder="Savannah Ventures"></div>
+        </div>
+        <div class="fgroup"><label for="finterest">Interest</label><select id="finterest" name="interest"><option>Investment</option><option>Strategic partnership</option><option>Other</option></select></div>
+        <div class="fgroup"><label for="fbemail">Email</label><input id="fbemail" name="contact" type="email" placeholder="john@ventures.co.ke"></div>
+      </div>
+      <input type="hidden" name="audience" id="audienceField" value="SACCO / Lender">
+      <button class="btn btn-primary" type="submit" style="width:100%">Join the waitlist</button>
+    </form>
+    <div class="success" id="successBox">
+      <div class="check">✅</div>
+      <h3 style="color:#fff">You're on the list</h3>
+      <p style="color:rgba(255,255,255,.72)">We'll be in touch within a few days.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="eyebrow">Say hello</div>
+    <h2 style="font-size:clamp(1.6rem,2.6vw,2.2rem)">We'd love to hear from you</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="lead" style="margin-bottom:1.2rem">Based in Nairobi and building something we believe Kenya, and beyond, needs.</p>
+        <div class="c-detail">📍 Nairobi, Kenya</div>
+        <div class="c-detail">📧 mefi.founding.office@gmail.com</div>
+      </div>
+      <form id="contactForm" action="https://formspree.io/f/mefi.founding.office@gmail.com" method="POST" onsubmit="return submitContact(event)">
+        <input type="hidden" name="_subject" value="New MEFI contact message">
+        <div class="fgroup"><label for="cname">Name</label><input id="cname" name="name" type="text" placeholder="Your name"></div>
+        <div class="fgroup"><label for="cemail">Email or phone</label><input id="cemail" name="contact" type="text" placeholder="you@example.com"></div>
+        <div class="fgroup"><label for="cmsg">Message</label><textarea id="cmsg" name="message" rows="3" placeholder="What's on your mind?"></textarea></div>
+        <button class="btn btn-ghost" type="submit" id="contactBtn">Send message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="logo foot-logo" style="font-size:1.05rem"><img src="mefi-logo.png" alt="MEFI Global logo"> MEFI<span>·</span>Global</div>
+    <div class="foot-links">
+      <a href="#how">How It Works</a>
+      <a href="#waitlist">Early Access</a>
+      <a href="#about">About</a>
+    </div>
+    <div class="foot-text">© 2026 MEFI Global, Nairobi</div>
+  </div>
+</footer>
+
+<script>
+const burgerBtn=document.getElementById('burgerBtn'),mobileMenu=document.getElementById('mobileMenu');
+burgerBtn.addEventListener('click',()=>{
+  const open=mobileMenu.classList.toggle('open');
+  burgerBtn.setAttribute('aria-expanded',open);
+});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileMenu.classList.remove('open');burgerBtn.setAttribute('aria-expanded','false');}));
+
+function animateScoreCard(){
+  const ring=document.getElementById('ring1'),num=document.getElementById('num1');
+  const target=76,circumference=283;
+  ring.style.strokeDashoffset=circumference-(target/100*circumference);
+  let c=0;
+  const t=setInterval(()=>{c+=2;num.textContent=c;if(c>=target){num.textContent=target;clearInterval(t);}},28);
+  document.getElementById('m1').style.width='78%';
+  document.getElementById('m2').style.width='82%';
+  document.getElementById('m3').style.width='65%';
+}
+window.addEventListener('load',()=>setTimeout(animateScoreCard,350));
+
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+function switchTab(which){
+  document.getElementById('tabA').classList.toggle('active',which==='a');
+  document.getElementById('tabB').classList.toggle('active',which==='b');
+  document.getElementById('tabC').classList.toggle('active',which==='c');
+  document.getElementById('formA').style.display=which==='a'?'block':'none';
+  document.getElementById('formB').style.display=which==='b'?'block':'none';
+  document.getElementById('formC').style.display=which==='c'?'block':'none';
+  const labels={a:'SACCO / Lender',b:'Investor / Partner',c:'Business'};
+  document.getElementById('audienceField').value=labels[which];
+}
+function submitWaitlist(e){
+  e.preventDefault();
+  const form=document.getElementById('formBox');
+  fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+    .then(()=>{
+      form.style.display='none';
+      document.querySelector('.tabs').style.display='none';
+      document.getElementById('successBox').style.display='block';
+    })
+    .catch(()=>alert('Something went wrong sending your details. Please email mefi.founding.office@gmail.com directly.'));
+  return false;
+}
+function submitContact(e){
+  e.preventDefault();
+  const form=document.getElementById('contactForm'),btn=document.getElementById('contactBtn');
+  btn.textContent='Sending...';
+  fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+    .then(()=>{btn.textContent='Message sent';form.reset();setTimeout(()=>btn.textContent='Send message',2500);})
+    .catch(()=>{btn.textContent='Send message';alert('Something went wrong. Please email mefi.founding.office@gmail.com directly.');});
+  return false;
+}
+</script>
+</body>
+</html>
